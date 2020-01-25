@@ -9,4 +9,14 @@ function repeat(times, action) {
 // test repeat()
 
 repeat(10, console.log);
-repeat(5, console.dir);;
+repeat(5, console.dir);
+
+let labels = [];
+repeat(5, (i) => {
+    // the variable i is a parameter passed in the anonmous function each
+    // time it is invoked by the repeat loop. It is automatically initalized to 0
+    console.log(`i: ${i}`);
+    labels.push(`Unit ${i+1}`);
+});
+
+console.log(labels);
