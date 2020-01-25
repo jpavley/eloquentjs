@@ -11,3 +11,4 @@ let greaterThan10 = greaterThan(10);
 console.log(greaterThan10(100));
 console.log(greaterThan10(5));
 
+["cat", "dog", "cow"].forEach(element => console.log(element));
