@@ -1,6 +1,7 @@
 // isEven.js
 
 function isEven(n) {
+    n = Math.abs(n);
     if (n == 0) {
         return true;
     } else if (n == 1) {
