@@ -13,8 +13,8 @@ repeat(5, console.dir);
 
 let labels = [];
 repeat(5, (i) => {
-    // the variable i is a parameter passed in the anonmous function each
-    // time it is invoked by the repeat loop. It is automatically initalized to 0
+    // the variable i is a parameter passed in the anonymous function each
+    // time it is invoked by the repeat loop. It is automatically initialized to 0
     console.log(`i: ${i}`);
     labels.push(`Unit ${i+1}`);
 });
