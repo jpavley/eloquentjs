@@ -44,6 +44,17 @@ console.log("Right to Left Lang Names:", langInfo.filter(
     lang => lang.name
 ).length);
 
+function reduce(array, combine, start) {
+    let current = start;
+    for (let element of array) {
+        current = combine(current, element);
+        console.log("current", current, "element", element);
+    }
+    return current;
+}
+
+console.log("reduce total",reduce([1,20,3,40], (a,b) => a + b, 0));
+
 
 
 
