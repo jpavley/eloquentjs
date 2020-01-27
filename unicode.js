@@ -13,6 +13,14 @@ function filter(array, test) {
     return result;
 }
 
+function map(array, transform) {
+    let result = [];
+    for (let element of array) {
+        result.push(transform(element));
+    }
+    return element
+}
+
 console.log("living:", filter(langInfo, lang => lang.living).length);
 console.log("dead:", filter(langInfo, lang => !lang.living).length);
 
@@ -25,7 +33,7 @@ console.log("left to right:", langInfo.filter(
 );
 
 console.log("other direction:", langInfo.filter(
-    s => s.direction !== 'rtl' && s.direction !== 'ltr')
+    s => s.direction !== 'rtl' && s.direction !== 'ltr').length
 );
 
 
