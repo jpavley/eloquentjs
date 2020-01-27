@@ -68,6 +68,14 @@ console.log(langInfo.reduce((a, b) => {
     return countCharacters(a) < countCharacters(b) ? b: a;
 }));
 
+let total = 0;
 
+for (let lang of langInfo) {
+    total += countCharacters(lang);
+}
 
+console.log(total);
 
+console.log(langInfo.map(s => countCharacters(s)).reduce((a,b) => {
+    return a+b;
+}));
