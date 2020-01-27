@@ -55,9 +55,18 @@ function reduce(array, combine, start) {
 
 console.log("reduce total",reduce([1,20,3,40], (a,b) => a + b, 0));
 
+// param s: array of language scripts
+function countCharacters(s) {
+    return s.ranges.reduce((count, [from,to]) => {
+        return count + (to - from);
+    }, 0);
+}
 
-
-
+// param a: current
+// param b: total
+console.log(langInfo.reduce((a, b) => {
+    return countCharacters(a) < countCharacters(b) ? b: a;
+}));
 
 
 
