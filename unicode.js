@@ -1,6 +1,9 @@
 // unicode.js
 
-let langInfo = require('./path/to/unicode-scripts.js');
+let langInfo = require('./unicode-scripts.js');
+console.log(langInfo[0], langInfo.length);
+
+
 
 
 
