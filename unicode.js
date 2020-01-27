@@ -16,6 +16,20 @@ function filter(array, test) {
 console.log("living:", filter(langInfo, lang => lang.living).length);
 console.log("dead:", filter(langInfo, lang => !lang.living).length);
 
+console.log("right to left:", langInfo.filter(
+    s => s.direction === 'rtl').length
+);
+
+console.log("left to right:", langInfo.filter(
+    s => s.direction === 'ltr').length
+);
+
+console.log("other direction:", langInfo.filter(
+    s => s.direction !== 'rtl' && s.direction !== 'ltr')
+);
+
+
+
 
 
 
