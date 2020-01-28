@@ -17,3 +17,10 @@ console.log(characterLanguage(121).name);
 
 // should return Han
 console.log(characterLanguage(11904).name);
+
+let freezingMindBlown = "🥶🤯";
+console.log(freezingMindBlown);
+
+for (let char of freezingMindBlown) {
+    console.log(char);
+}
