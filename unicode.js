@@ -76,4 +76,8 @@ for (let lang of langInfo) {
 
 console.log(total);
 
-console.log(langInfo.map(s => countCharacters(s)).reduce((a,b) =>  a+b));
+console.log(langInfo.map( s => { 
+    return countCharacters(s);
+}).reduce((a,b) =>  {
+    return a+b;
+}));
