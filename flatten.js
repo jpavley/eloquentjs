@@ -1,5 +1,6 @@
 // flatten
 
+
 function flatten(o) {
     let result = [];
 
