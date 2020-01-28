@@ -66,3 +66,6 @@ function textScripts(text) {
 
 console.log(textScripts('英国的狗说"woof", 俄罗斯的狗说"тяв"'));
 
+let ViacomCBS = ["CBS", "Nickelodeon", "Showtime", "Comedy Central", "MTV"];
+let ViacomCBSTech = ViacomCBS.map(brand => `${brand} tech`);
+console.log(ViacomCBSTech);
