@@ -21,11 +21,23 @@ console.log(every1([1,2,3,4], n => n < 3));
 console.log(every1([1,2,3,4], n => n < 4));
 
 function every2(array, test) {
-    return array.some(test);
+
+    let passed = true;
+    for (let i = 0; i < array.length; i += 1) {
+        passed = [array[i]].some(test);
+        if (!passed) {
+            passed = false;
+            break;
+        }
+    }
+
+    return passed;
 }
 
 console.log("every2");
 console.log(every2([1,2,3,4], n => n < 5));
 console.log(every2([1,2,3,4], n => n < 3));
 console.log(every2([1,2,3,4], n => n < 4));
+console.log(every2([1,2,3,4], n => n < 6));
+
 
