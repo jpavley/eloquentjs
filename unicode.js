@@ -1,8 +1,15 @@
-// unicode.js
+/**
+ * unicode.js
+ */
 
 let langInfo = require('./unicode-scripts.js');
 console.log(`languages: ${langInfo.length}`);
 
+/**
+ * 
+ * @param Array array 
+ * @param Function test 
+ */
 function filter(array, test) {
     let filtered = [];
     for (let element of array) {
@@ -28,6 +35,11 @@ console.log("other direction:", langInfo.filter(
     s => s.direction !== 'rtl' && s.direction !== 'ltr').length
 );
 
+/**
+ * 
+ * @param Array array 
+ * @param Function transform 
+ */
 function map(array, transform) {
     let mapped = [];
     for (let element of array) {

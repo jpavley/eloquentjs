@@ -1,7 +1,9 @@
-// flatten
-
+/**
+ * flatten.js
+ */
 
 function flatten(o) {
+
     let result = [];
 
     o.forEach(e => {
