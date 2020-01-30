@@ -61,7 +61,7 @@ Matrix.prototype[Symbol.iterator] = function() {
     return new MatrixIterator(this);
 };
 
-let matrix = new Matrix(2, 2, (x, y) => `value ${x},${y}`);
+let matrix = new Matrix(2, 2, (x, y) => `pokemon ${x},${y}`);
 
 console.log(matrix);
 
