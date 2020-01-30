@@ -66,6 +66,23 @@ function textScripts(text) {
 
 console.log(textScripts('英国的狗说"woof", 俄罗斯的狗说"тяв"'));
 
-let ViacomCBS = ["CBS", "Nickelodeon", "Showtime", "Comedy Central", "MTV"];
-let ViacomCBSTech = ViacomCBS.map(brand => `${brand} tech`);
-console.log(ViacomCBSTech);
+function textWritingDirection(text) {
+
+    let scripts = countBy(text, char => {
+        let script = characterScript(char.codePointAt(0));
+        return script ? script.direction : "none";
+    }).filter(({direction}) => direction != "none");
+
+    // compute total number of chars that belong to a script
+    let total = scripts.reduce((n, {count}) => n + count, 0);
+    if (total == 0) return "No scripts found";
+
+    return scripts.map(({name, count}) => {
+        return `${Math.round(count * 100 / total)}% ${name}`;
+    }).join(", ");
+}
+
+console.log(textWritingDirection('woof פפדשדפ'));
+console.log(textWritingDirection('英国的狗说"woof", 俄罗斯的狗说"тяв"'));
+
+
