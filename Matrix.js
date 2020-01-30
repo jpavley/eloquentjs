@@ -56,3 +56,7 @@ class MatrixIterator {
         return {value, done: false};
     }
 }
+
+Matrix.prototype[Symbol.iterator] = function() {
+    return new MatrixIterator(this);
+};
