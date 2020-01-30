@@ -60,3 +60,11 @@ class MatrixIterator {
 Matrix.prototype[Symbol.iterator] = function() {
     return new MatrixIterator(this);
 };
+
+let matrix = new Matrix(2, 2, (x, y) => `value ${x},${y}`);
+
+console.log(matrix);
+
+for (let {x, y, value} of matrix) {
+    console.log(x, y, value);
+}
