@@ -45,4 +45,3 @@ console.log("v4 length", v4.length);
 let v5 = new Vector(0,4);
 console.log("v5 length", v5.length);
 
-
