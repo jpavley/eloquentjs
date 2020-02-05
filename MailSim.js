@@ -15,13 +15,6 @@ const roads = [
     "Marketplace-Town Hall",       "Shop-Town Hall"
 ];
 
-// Test edges
-const points = [
-    "1-", "1-5", "1-7", "1-9",
-    "0-2", "0-4", "0-6", "0-8",
-    "2-9", "4-7", "6-5"
-];
-
 function buildGraph(edges) {
 
     //let graph = Object.create(null);
@@ -35,10 +28,11 @@ function buildGraph(edges) {
      * @param String to 
      */
     function addEdge(from, to) {
-        // ????: How does this condition ever happen?
         if (graph[from] == null) {
+            // if the property `graph[from]` doesn't exist yet, create it!
             graph[from] = [to];
         } else {
+            // if the property `graph[from]` exists, add the `to` to it!
             graph[from].push(to);
         }
     }
@@ -57,6 +51,3 @@ function buildGraph(edges) {
 
 const roadGraph = buildGraph(roads);
 console.log(roadGraph);
-
-const testGraph = buildGraph(points);
-console.log(testGraph);
