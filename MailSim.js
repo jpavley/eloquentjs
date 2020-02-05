@@ -51,3 +51,29 @@ function buildGraph(edges) {
 
 const roadGraph = buildGraph(roads);
 console.log(roadGraph);
+
+class VillageState {
+
+    constructor(place, parcels) {
+        this.place = place;
+        this.parcels = parcels;
+    }
+
+    move(destination) {
+        // is there a road from here (the current `place`) to there (the `destination`)?
+        if (!roadGraph[this.place].includes(destination)) {
+            return this; // return original state, no change!
+        } else {
+            // create a list of parcels with their addresses while filtering parcels delivered
+            let parcels = this.parcels.map(p => {
+                if (p.place != this.place) {
+                    return p; // no parcels to deliver
+                } else {
+                    return {place: destination, address: p.address}; // copy over the remaining parcels
+                }
+            }).filter(p => p.place != p.address); // filter out the `parcels` that have been delivered to this `place`
+            // create a new `VillageState` with the `destination` as the current `place`
+            return new VillageState(destination, parcels);
+        }
+    }
+}
