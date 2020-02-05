@@ -77,3 +77,14 @@ class VillageState {
         }
     }
 }
+
+let first = new VillageState(
+    "Post Office", // place
+    [{place: "Post Office", address: "Alice's House"}] // parcels
+);
+
+let next = first.move( "Alice's House");
+
+console.log(`first ${first.place} ${first.parcels.length}`);
+console.log(`next ${next.place} ${next.parcels.length}`);
+console.log(`first ${first.place} ${first.parcels.length}`);
