@@ -125,3 +125,25 @@ console.log(`possible places: ${roadGraph[first.place]}`);
 console.log(`randomRobot(first): ${randomRobot(first).direction}`);
 console.log(`possible places: ${roadGraph[next.place]}`);
 console.log(`randomRobot(next): ${randomRobot(next).direction}`);
+
+/**
+ * Random method (added directly to constructor).
+ * Randomly locates parcels around the `roadGraph`.
+ * 
+ * @returns A new `VillageState` with randomly assigned
+ * `place` and `parcels`.
+ */
+VillageState.random = function(parcelCount = 5) {
+    let parcels = [];
+    for (let i = 0; i < parcelCount; i += 1) {
+        let address = randomPick(Object.keys(roadGraph));
+        let place;
+        do {
+            place = randomPick(Object.keys(roadGraph));
+        } while (place == address); // parcels addressed to the place where they are located
+        parcels.push({place, address});
+    }
+    return new VillageState("Post Office", parcels);
+};
+
+console.log(VillageState.random());
