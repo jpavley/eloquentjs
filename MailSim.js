@@ -55,7 +55,7 @@ console.log(roadGraph);
 class VillageState {
 
     constructor(place, parcels) {
-        this.place = place;
+        this.place = place; // used a key in roadGraph
         this.parcels = parcels;
     }
 
@@ -88,3 +88,40 @@ let next = first.move( "Alice's House");
 console.log(`first ${first.place} ${first.parcels.length}`);
 console.log(`next ${next.place} ${next.parcels.length}`);
 console.log(`first ${first.place} ${first.parcels.length}`);
+
+function runRobot(state, robot, memory) {
+    for (let turn = 0; ; turn += 1) {
+        if (state.parcels.length == 0) {
+            console.log(`Done in ${turn} turns`);
+            break;
+        } else {
+            let action = robot(state, memory);
+            state = state.move(action.direction);
+            memory = action.memory;
+            console.log(`Moved to ${action.direction}`);
+        }
+    }
+}
+
+function randomPick(array) {
+    let choice = Math.floor(Math.random() * array.length);
+    return array[choice];
+}
+
+// A robot is a function that takes a VillageState and
+// returns the name of the place it wants to go to.
+
+/**
+ * 
+ * @param VillageState state
+ * @returns place String
+ */
+function randomRobot(state) {
+    let robot = {direction: randomPick(roadGraph[state.place])};
+    return robot;
+}
+
+console.log(`possible places: ${roadGraph[first.place]}`);
+console.log(`randomRobot(first): ${randomRobot(first).direction}`);
+console.log(`possible places: ${roadGraph[next.place]}`);
+console.log(`randomRobot(next): ${randomRobot(next).direction}`);
