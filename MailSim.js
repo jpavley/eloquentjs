@@ -52,6 +52,10 @@ function buildGraph(edges) {
 const roadGraph = buildGraph(roads);
 console.log(roadGraph);
 
+/**
+ * A VillageState has a `place` (where the robot currently is) and
+ * a list of `parcels` that need to be delivered.
+ */
 class VillageState {
 
     constructor(place, parcels) {
@@ -72,6 +76,7 @@ class VillageState {
                     return {place: destination, address: p.address}; // copy over the remaining parcels
                 }
             }).filter(p => p.place != p.address); // filter out the `parcels` that have been delivered to this `place`
+            console.log("parcels remaining", parcels, "count", parcels.length);
             // create a new `VillageState` with the `destination` as the current `place`
             return new VillageState(destination, parcels);
         }
@@ -89,6 +94,13 @@ console.log(`first ${first.place} ${first.parcels.length}`);
 console.log(`next ${next.place} ${next.parcels.length}`);
 console.log(`first ${first.place} ${first.parcels.length}`);
 
+/**
+ * Moves a robot until all parcels are delivered and updates state and 
+ * memory params with a new `state` and `memory`.
+ * @param VillageState state 
+ * @param function robot 
+ * @param Array memory
+ */
 function runRobot(state, robot, memory) {
     for (let turn = 0; ; turn += 1) {
         if (state.parcels.length == 0) {
@@ -103,18 +115,20 @@ function runRobot(state, robot, memory) {
     }
 }
 
+/**
+ * @returns a random element of the `array`
+ * @param Array array
+ */
 function randomPick(array) {
     let choice = Math.floor(Math.random() * array.length);
     return array[choice];
 }
 
-// A robot is a function that takes a VillageState and
-// returns the name of the place it wants to go to.
-
 /**
- * 
+ * A robot is a function that takes a VillageState and
+ * returns the name of the place it wants to go to.
  * @param VillageState state
- * @returns place String
+ * @returns updated robot (with no memory)
  */
 function randomRobot(state) {
     let robot = {direction: randomPick(roadGraph[state.place])};
@@ -147,3 +161,31 @@ VillageState.random = function(parcelCount = 5) {
 };
 
 console.log(VillageState.random());
+
+runRobot(VillageState.random(), randomRobot);
+
+const mailRoute = [    
+    "Alice's House", "Cabin", "Alice's House", "Bob's House",
+    "Town Hall", "Daria's House", "Ernie's House",
+    "Grete's House", "Shop", "Grete's House", "Farm",
+    "Marketplace", "Post Office"
+]; 
+
+/**
+ * If we find a route that passes all places in the village, the robot 
+ * could run that route twice, at which point it is guaranteed 
+ * to be done. The robot keeps the rest of its route in its memory and 
+ * drops the first element every turn.
+ * @returns updated robot with memory (updated route list)
+ * @param VillageState state 
+ * @param Array memory (a route list)
+ */
+function routeRobot(state, memory) {   
+    if (memory.length == 0) {     
+        memory = mailRoute;   
+    }   
+    return {direction: memory[0], memory: memory.slice(1)}; 
+}
+
+
+
