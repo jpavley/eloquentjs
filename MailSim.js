@@ -189,4 +189,6 @@ function routeRobot(state, memory) {   
 
 runRobot(VillageState.random(), routeRobot, mailRoute);
 
-
+function findRoute(graph, from, to) {
+    let work = [{at: from, route: []}];
+}
