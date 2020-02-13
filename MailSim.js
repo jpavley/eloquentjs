@@ -50,7 +50,7 @@ function buildGraph(edges) {
 }
 
 const roadGraph = buildGraph(roads);
-console.log(roadGraph);
+//console.log(roadGraph);
 
 /**
  * A VillageState has a `place` (where the robot currently is) and
@@ -90,9 +90,9 @@ let first = new VillageState(
 
 let next = first.move( "Alice's House");
 
-console.log(`first ${first.place} ${first.parcels.length}`);
-console.log(`next ${next.place} ${next.parcels.length}`);
-console.log(`first ${first.place} ${first.parcels.length}`);
+//console.log(`first ${first.place} ${first.parcels.length}`);
+//console.log(`next ${next.place} ${next.parcels.length}`);
+//console.log(`first ${first.place} ${first.parcels.length}`);
 
 /**
  * Moves a robot until all parcels are delivered and updates state and 
@@ -102,17 +102,20 @@ console.log(`first ${first.place} ${first.parcels.length}`);
  * @param Array memory
  */
 function runRobot(state, robot, memory) {
+    let turnCount = 0;
     for (let turn = 0; ; turn += 1) {
         if (state.parcels.length == 0) {
-            console.log(`Done in ${turn} turns`);
+            //console.log(`Done in ${turn} turns`);
+            turnCount = turn;
             break;
         } else {
             let action = robot(state, memory);
             state = state.move(action.direction);
             memory = action.memory;
-            console.log(`Moved to ${action.direction}`);
+            //console.log(`Moved to ${action.direction}`);
         }
     }
+    return turnCount;
 }
 
 /**
@@ -162,7 +165,7 @@ VillageState.random = function(parcelCount = 5) {
 
 console.log(VillageState.random());
 
-runRobot(VillageState.random(), randomRobot);
+//runRobot(VillageState.random(), randomRobot);
 
 const mailRoute = [    
     "Alice's House", "Cabin", "Alice's House", "Bob's House",
@@ -187,12 +190,12 @@ function routeRobot(state, memory) {   
     return {direction: memory[0], memory: memory.slice(1)}; 
 }
 
-runRobot(VillageState.random(), routeRobot, mailRoute);
+//runRobot(VillageState.random(), routeRobot, mailRoute);
 
 /**
  * Look for the shortest route by growing routes from the 
  * starting point and finding every reachable place that has
- * not been visted yet.
+ * not been visited yet.
  * @param {Object} graph 
  * @param {String} from 
  * @param {String} to
@@ -220,6 +223,11 @@ function findRoute(graph, from, to) {
     }
 }
 
+/**
+ * 
+ * @param VillageState state 
+ * @param Array memory (a route list) 
+ */
 function goalOrientedRobot({place, parcels}, route) {
     if (route.length == 0) {
         // take first undelivered parcel
@@ -235,4 +243,28 @@ function goalOrientedRobot({place, parcels}, route) {
     return {direction: route[0], memory: route.slice(1)};
 }
 
-runRobot(VillageState.random(), goalOrientedRobot, mailRoute);
+//runRobot(VillageState.random(), goalOrientedRobot, mailRoute);
+
+function compareRobots(nameA, robotA, nameB,robotB) {
+
+    let robotAResults = 0;
+    let robotBResults = 0;
+
+    for (let i = 0; i < 100; i += 1) {
+        // give the robots the same starting state and memory
+        let state = VillageState.random();
+        let stateA = state;
+        let stateB = state;
+        let memoryA = mailRoute;
+        let memoryB = mailRoute;
+
+        robotAResults += runRobot(stateA, robotA, memoryA);
+        robotBResults += runRobot(stateB, robotB, memoryB);
+    }
+
+    console.log(`${nameA} ${robotAResults/100}`);
+    console.log(`${nameB} ${robotBResults/100}`);
+}
+
+compareRobots("routeRobot", routeRobot, "randomRobot", randomRobot);
+compareRobots("routeRobot", routeRobot, "goalOrientedRobot", goalOrientedRobot);
