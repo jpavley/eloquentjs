@@ -84,12 +84,12 @@ class GroupIterator {
 
 Group.prototype[Symbol.iterator] = function() {
     return new GroupIterator(this);
-}
+};
 
 let g3 = new Group();
 g3.add("cat");
-g3.add("dog")
-g3.add("cow")
+g3.add("dog");
+g3.add("cow");
 g3.add("pig");
 console.log(g3);
 
