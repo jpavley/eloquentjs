@@ -76,7 +76,7 @@ class VillageState {
                     return {place: destination, address: p.address}; // copy over the remaining parcels
                 }
             }).filter(p => p.place != p.address); // filter out the `parcels` that have been delivered to this `place`
-            console.log("parcels remaining", parcels, "count", parcels.length);
+            //console.log("parcels remaining", parcels, "count", parcels.length);
             // create a new `VillageState` with the `destination` as the current `place`
             return new VillageState(destination, parcels);
         }
@@ -189,6 +189,50 @@ function routeRobot(state, memory) {   
 
 runRobot(VillageState.random(), routeRobot, mailRoute);
 
+/**
+ * Look for the shortest route by growing routes from the 
+ * starting point and finding every reachable place that has
+ * not been visted yet.
+ * @param {Object} graph 
+ * @param {String} from 
+ * @param {String} to
+ * @returns {Array} route
+ */
 function findRoute(graph, from, to) {
+    // work list: place to explore next
+    // starts with start position and empty route
     let work = [{at: from, route: []}];
+    for (let i = 0; i < work.length; i += 1) {
+        let {at, route} = work[i];
+        for (let place of graph[at]) {
+            if (place == to) {
+                // place is destination add it to the route 
+                // and return
+                return route.concat(place);
+            }
+            if (!work.some(w => w.at == place)) {
+                // place is not destination so add it to the 
+                // work list
+                work.push({at: place, route: route.concat(place)});
+            }
+
+        }
+    }
 }
+
+function goalOrientedRobot({place, parcels}, route) {
+    if (route.length == 0) {
+        // take first undelivered parcel
+        let parcel = parcels[0];
+        if (parcel.place != place) {
+            // if not picked up yet, plot route to pick it up
+            route = findRoute(roadGraph, place, parcel.place);
+        } else {
+            // if has been picked up, plot route to deliver it
+            route = findRoute(roadGraph, place, parcel.address);
+        }
+    }
+    return {direction: route[0], memory: route.slice(1)};
+}
+
+runRobot(VillageState.random(), goalOrientedRobot, mailRoute);
