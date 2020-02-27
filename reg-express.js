@@ -51,7 +51,44 @@ print(dateTime2.test("01-1-03 08:45"));
 let cartoonCrying = /boo+(hoo+)+/i;
 print("booooooHoooooHOOOOOhoo", cartoonCrying.test("booooooHoooooHOOOOOhoo"));
 
+let match = /\d+/.exec("one two 100");
+console.log(match, match.index);
+console.log(match[0]);
 
+let quotedText = /'([^']*)'/;
+console.log(quotedText.exec("she said 'hello'"));
 
+console.log(/bad(ly)?/.exec("bad"));
+
+let ebeddedCat = /cat/;
+let isolatedCat = /\bcat\b/;
+
+console.log(ebeddedCat.test("concatenate"));
+console.log(isolatedCat.test("con cat enate"));
+
+let animalCount = /\b\d+ (pig|cow|chicken)s?\b/;
+console.log(animalCount.test("15 pigs"));
+console.log(animalCount.test("15 pigx"));
+
+console.log("XXXXX".replace(/X/, "y"));
+console.log("XXXXX".replace(/X/g, "y"));
+
+let nameList = "Smith, John\nDoe, Jane\nGraves, Peter";
+let nameRegEx = /(\w+), (\w+)/g;
+
+console.log(
+    nameList.replace(nameRegEx, "[$2 $1]")
+);
+
+function processMatch(match, first, last) {
+    console.log(last.toUpperCase(), first.toUpperCase());
+}
+
+nameList.replace(nameRegEx, processMatch);
+
+let name = "harry";
+let text = "Harry is his name and Harry is his fame!";
+let regex = new RegExp("\\b(" + name + ")\\b", "gi");
+console.log(text.replace(regex, "_$1_"));
 
 
