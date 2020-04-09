@@ -26,7 +26,7 @@ for (let i = 0; i < 32; i += 1) {
 console.log("| char | dec | hex | bin |");
 console.log("|-----:|----:|----:|----:|");
 
-for (let c = 'A'.charCodeAt(0); c <= 'Z'.charCodeAt(0); c += 1) {
+for (let c = 'a'.charCodeAt(0); c <= 'z'.charCodeAt(0); c += 1) {
 
   let l = String.fromCharCode(c);
   let d = c.toString().padStart(2,"0").toUpperCase();
